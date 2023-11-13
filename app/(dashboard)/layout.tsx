@@ -1,4 +1,4 @@
-import { UserButton } from "@clerk/nextjs";
+import Navbar from "./components/Navbar";
 
 export default function DashboardLayout({
   children,
@@ -6,8 +6,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <UserButton />
+    <div className="w-[min(100%,1600px)] px-5 mx-auto ">
+      <Navbar />
       {children}
     </div>
   );

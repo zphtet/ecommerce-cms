@@ -21,7 +21,7 @@ type FormProps = {
   name: string;
 };
 
-const CreateDialog = ({ text }: { text: string }) => {
+const CreateDialog = ({ text, isDone }: { text: string; isDone?: boolean }) => {
   const [loading, setLoading] = useState(false);
   const { user, isSignedIn } = useUser();
   const router = useRouter();
@@ -42,15 +42,23 @@ const CreateDialog = ({ text }: { text: string }) => {
     });
     const createdData = await res.json();
     console.log(createdData);
-    router.push(`/${createdData.data.id}`);
-    // setLoading(false);
-    // document.getElementById("closeDialog")?.click();
+    if (!isDone) {
+      router.push(`/${createdData.data.id}`);
+      return;
+    }
+    setLoading(false);
+    document.getElementById("closeDialog")?.click();
+    router.refresh();
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" id="create-store">
+        <Button
+          variant="outline"
+          className="w-full max-w-[250px]"
+          id="create-store"
+        >
           {text}
         </Button>
       </DialogTrigger>
