@@ -19,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function SettingForm({
   defaultStoreName,
@@ -75,10 +76,11 @@ export default function SettingForm({
         />
         <Button
           type="submit"
-          className={`${saving && "opacity-80"}`}
+          // className={`${saving && "opacity-80"}`}
           disabled={saving}
         >
-          {saving ? "Saving ... " : "Save changes"}
+          {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Save changes
         </Button>
       </form>
     </Form>
