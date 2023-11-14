@@ -44,3 +44,24 @@ export async function PATCH(
     data: data,
   });
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { billboardid: string } }
+) {
+  const { userId } = auth();
+  if (!userId) return NextResponse.json("Unauthorized", { status: 401 });
+  const data = await prisma.billboard.findUnique({
+    where: {
+      id: params.billboardid,
+    },
+  });
+  console.log("delete", params.billboardid);
+  if (!data) return NextResponse.json("Not found", { status: 404 });
+  await prisma.billboard.delete({
+    where: {
+      id: params.billboardid,
+    },
+  });
+  return NextResponse.json("success", { status: 200 });
+}

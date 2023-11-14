@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { AiOutlineDelete } from "react-icons/ai";
 
 const DeleteBtn = ({
@@ -13,15 +15,18 @@ const DeleteBtn = ({
     return handler();
   };
   return (
-    <button
-      className={`bg-red-600 text-white text-xl px-1 py-1 rounded-md ${
-        loading && "opacity-80"
-      }`}
+    <Button
+      className={`bg-red-600 text-white text-xl  rounded-md `}
       onClick={clickHandler}
       disabled={loading}
+      variant={"destructive"}
     >
-      <AiOutlineDelete />
-    </button>
+      {loading ? (
+        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+      ) : (
+        <AiOutlineDelete />
+      )}
+    </Button>
   );
 };
 

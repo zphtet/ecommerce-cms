@@ -30,7 +30,7 @@ const BillboardItem = () => {
         callbackUrl={`/${storeid}/billboards`}
         desc="manage your billboard"
         editMode={!createNew}
-        route="nothing"
+        route={`/api/billboard/${billboardid}`}
         title={title}
       />
       <div className="w-[min(100%,400px)] my-5">
