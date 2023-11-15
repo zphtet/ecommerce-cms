@@ -51,7 +51,7 @@ export default function CategoryForm({
     defaultValues: {
       // label: editData?.label || "",
       // billboard: "m@google.com",
-      billboard: editData?.billboardId || "",
+      billboard: editData?.billboardId || undefined,
       name: editData?.name,
     },
   });
@@ -129,7 +129,7 @@ export default function CategoryForm({
             <FormItem>
               <FormLabel>Label</FormLabel>
               <FormControl>
-                <Input placeholder="your billboard label" {...field} />
+                <Input placeholder="your category name ..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
