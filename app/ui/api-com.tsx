@@ -3,12 +3,7 @@ import { CgDatabase } from "react-icons/cg";
 import { useOrigin } from "@/hooks/useOrigin";
 import { MdContentCopy } from "react-icons/md";
 import toast from "react-hot-toast";
-type ApiProps = {
-  name: string;
-  access: "public" | "admin";
-  route: string;
-};
-
+import { ApiProps } from "../types";
 const Api = ({ name, access, route }: ApiProps) => {
   const siteOrigin = useOrigin();
   const clickHandler = () => {
@@ -16,11 +11,11 @@ const Api = ({ name, access, route }: ApiProps) => {
     toast.success("successfully copied");
   };
   return (
-    <div className="  relative flex gap-5 bg-gray-100 py-4 px-5 items-start">
+    <div className=" w-[min(100%)] relative flex gap-5 bg-gray-100 py-4 px-5 items-start">
       <div className="pt-1">
         <CgDatabase />
       </div>
-      <div>
+      <div className="flex-1 w-max">
         <p className="font-bold flex items-center">
           {name}
           <span
@@ -31,7 +26,7 @@ const Api = ({ name, access, route }: ApiProps) => {
             {access}
           </span>
         </p>
-        <p className="text-sm mt-2">{`${siteOrigin}/api${route}`}</p>
+        <p className="w-full text-sm mt-2">{`${siteOrigin}/api${route}`}</p>
       </div>
       <button className="absolute right-5 bottom-4 " onClick={clickHandler}>
         <MdContentCopy />

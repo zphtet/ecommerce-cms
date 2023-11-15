@@ -16,3 +16,19 @@ export async function POST(req: Request) {
     data: createdData,
   });
 }
+
+export async function GET(
+  req: Request,
+  { params }: { params: { storeid: string } }
+) {
+  const data = await prisma.billboard.findMany({
+    where: {
+      storeId: params.storeid,
+    },
+  });
+  return NextResponse.json({
+    status: "success",
+    count: data.length,
+    data,
+  });
+}

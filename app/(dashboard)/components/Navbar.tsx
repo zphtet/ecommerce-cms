@@ -4,7 +4,6 @@ import NavLinks from "./nav-links";
 import prisma from "@/prisma/prisma-client";
 const Navbar = async () => {
   const { userId } = auth();
-  console.log("Navbar rerendered");
   const allStores = await prisma.store.findMany({
     where: {
       userId: userId!,

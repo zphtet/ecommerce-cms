@@ -32,11 +32,15 @@ import { Input } from "@/components/ui/input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  filter: string;
+  domId: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  filter,
+  domId,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -61,10 +65,10 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter billboards..."
-          value={table.getColumn("label")?.getFilterValue() as string}
+          placeholder={`Filter ${filter} ...`}
+          value={table.getColumn(domId)?.getFilterValue() as string}
           onChange={(event) =>
-            table.getColumn("label")?.setFilterValue(event.target.value)
+            table.getColumn(domId)?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

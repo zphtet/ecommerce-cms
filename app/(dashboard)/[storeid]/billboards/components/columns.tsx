@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useParams, useRouter } from "next/navigation";
-import ConfirmDialog from "./confirm-dialog";
+import ConfirmDialog from "../../components/confirm-dialog";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 // This type is used to define the shape of our data.
@@ -43,15 +43,19 @@ export const columns: ColumnDef<Billboard>[] = [
     cell: ({ row }) => {
       const billboard = row.original;
       const router = useRouter();
+      const { storeid } = useParams();
       //   const [deleting, setDeleting] = useState(false);
       //   const [deleteId, setDeleteId] = useState("");
 
       const deleteHandler = async () => {
         try {
           //   setDeleting(true);
-          const res = await fetch(`/api/billboard/${billboard.id}`, {
-            method: "DELETE",
-          });
+          const res = await fetch(
+            `/api/store/${storeid}/billboards/${billboard.id}`,
+            {
+              method: "DELETE",
+            }
+          );
           const data = await res.json();
           toast.success("deleted successfully");
           router.refresh();

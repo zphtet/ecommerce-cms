@@ -50,7 +50,7 @@ export default function BillboardForm({
     label: string;
     imageUrl: string;
   }) => {
-    await fetch(`/api/billboard`, {
+    await fetch(`/api/store/${storeid}/billboards`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ export default function BillboardForm({
     label: string;
     imageUrl: string;
   }) => {
-    await fetch(`/api/billboard/${billboardid}`, {
+    await fetch(`/api/store/${storeid}/billboards/${billboardid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
