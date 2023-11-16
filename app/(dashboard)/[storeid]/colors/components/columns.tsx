@@ -2,9 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import CellAction from "./cell-action";
-import { Size } from "@prisma/client";
+import { Color } from "@prisma/client";
 
-export const columns: ColumnDef<Size>[] = [
+export const columns: ColumnDef<Color>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -12,7 +12,21 @@ export const columns: ColumnDef<Size>[] = [
   {
     accessorKey: "value",
     header: "Value",
-    // cell: ({ row }) => row.original.billboardId,
+    cell: ({ row }) => {
+      const value = row.getValue("value");
+
+      return (
+        <div className=" font-medium flex items-center gap-2">
+          <p>{value as string}</p>
+          <div
+            className={`w-3 h-3 `}
+            style={{
+              backgroundColor: `${value}`,
+            }}
+          ></div>
+        </div>
+      );
+    },
   },
   {
     accessorKey: "createdAt",

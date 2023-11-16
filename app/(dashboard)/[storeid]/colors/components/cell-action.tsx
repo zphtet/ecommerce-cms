@@ -15,22 +15,22 @@ import { AiOutlineCopy, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import ConfirmDialog from "../../components/confirm-dialog";
 import { useState } from "react";
 import { useDeleteContext } from "@/context/DeleteContext";
-import { Size } from "@prisma/client";
-const CellAction = ({ data }: { data: Size }) => {
-  const size = data;
+import { Color } from "@prisma/client";
+const CellAction = ({ data }: { data: Color }) => {
+  const color = data;
   const router = useRouter();
   const { storeid } = useParams();
   const [deleting, setDeleting] = useState(false);
   const { deleteId, setDeleteId } = useDeleteContext();
   const showConifrmDialog = () => {
-    setDeleteId(size.id);
+    setDeleteId(color.id);
     document.getElementById("confirm-delete")?.click();
   };
 
   const deleteHandler = async () => {
     try {
       setDeleting(true);
-      const res = await fetch(`/api/store/${storeid}/sizes/${deleteId}`, {
+      const res = await fetch(`/api/store/${storeid}/colors/${deleteId}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -57,7 +57,7 @@ const CellAction = ({ data }: { data: Size }) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem
           className="flex items-center cursor-pointer gap-2"
-          onClick={() => navigator.clipboard.writeText(size.id)}
+          onClick={() => navigator.clipboard.writeText(color.id)}
         >
           <AiOutlineCopy /> Copy ID
         </DropdownMenuItem>
@@ -65,7 +65,7 @@ const CellAction = ({ data }: { data: Size }) => {
         <DropdownMenuItem
           className="flex items-center cursor-pointer gap-2"
           onClick={() => {
-            router.push(`/${storeid}/sizes/${size.id}`);
+            router.push(`/${storeid}/colors/${color.id}`);
           }}
         >
           <AiOutlineEdit /> update
@@ -77,7 +77,7 @@ const CellAction = ({ data }: { data: Size }) => {
           <AiOutlineDelete /> delete
         </DropdownMenuItem>
       </DropdownMenuContent>
-      <ConfirmDialog name="Size" loading={deleting} handler={deleteHandler} />
+      <ConfirmDialog name="Color" loading={deleting} handler={deleteHandler} />
     </DropdownMenu>
   );
 };

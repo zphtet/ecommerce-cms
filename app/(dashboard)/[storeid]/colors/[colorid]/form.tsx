@@ -19,20 +19,20 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
-import { Size } from "@prisma/client";
+import { Color } from "@prisma/client";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  value: z.string().min(1).max(50),
+  value: z.string().min(4).max(7),
 });
-export default function SizeForm({
+export default function ColorForm({
   editData,
   editMode,
 }: {
-  editData: null | Size;
+  editData: null | Color;
   editMode: boolean;
 }) {
-  const { storeid, sizeid } = useParams();
+  const { storeid, colorid } = useParams();
   const router = useRouter();
   const [create, setCreate] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,8 +43,8 @@ export default function SizeForm({
     },
   });
 
-  const createSize = async (data: { value: string; name: string }) => {
-    const createdData = await fetch(`/api/store/${storeid}/sizes`, {
+  const createColor = async (data: { value: string; name: string }) => {
+    const createdData = await fetch(`/api/store/${storeid}/colors`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,12 +54,12 @@ export default function SizeForm({
         storeId: storeid,
       }),
     });
-    toast.success("size created");
+    toast.success("color created");
     return createdData;
   };
 
-  const editSize = async (data: { name: string; value: string }) => {
-    await fetch(`/api/store/${storeid}/sizes/${sizeid}`, {
+  const editColor = async (data: { name: string; value: string }) => {
+    await fetch(`/api/store/${storeid}/colors/${colorid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -78,14 +78,14 @@ export default function SizeForm({
     try {
       setCreate(true);
       if (editMode) {
-        await editSize(createData);
+        await editColor(createData);
       } else {
-        await createSize(createData);
+        await createColor(createData);
       }
-      router.push(`/${storeid}/sizes`);
+      router.push(`/${storeid}/colors`);
       router.refresh();
     } catch (e) {
-      toast.error("error creating size");
+      toast.error("error creating color");
     } finally {
       setCreate(false);
     }
@@ -102,7 +102,7 @@ export default function SizeForm({
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="your size name ..." {...field} />
+                  <Input placeholder="your color name ..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -114,7 +114,7 @@ export default function SizeForm({
             name="value"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Value</FormLabel>
+                <FormLabel>Hex Code</FormLabel>
                 <FormControl>
                   <Input placeholder="your value ..." {...field} />
                 </FormControl>
@@ -122,6 +122,12 @@ export default function SizeForm({
               </FormItem>
             )}
           />
+          <div
+            className={`w-8 h-6 rounded-sm border self-end `}
+            style={{
+              backgroundColor: `${form.watch("value")}`,
+            }}
+          ></div>
         </div>
 
         <Button type="submit" disabled={create}>
