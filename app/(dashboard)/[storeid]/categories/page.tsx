@@ -1,10 +1,9 @@
 import prisma from "@/prisma/prisma-client";
 import PageTitle from "../components/page-title";
 import { DataTable } from "../components/data-table";
-import { Category } from "@prisma/client";
 import ApiReference from "../components/api-refer";
 import { ApiProps } from "@/app/types";
-import { columns, CategoryColumn } from "./components/components/columns";
+import { columns, CategoryColumn } from "./components/columns";
 
 const CategoryPage = async ({ params }: { params: { storeid: string } }) => {
   const data = await prisma.category.findMany({
