@@ -23,6 +23,11 @@ const NavLinks = () => {
       active: pathname === `/${storeid}/categories`,
     },
     {
+      label: "Sizes",
+      href: `/${storeid}/sizes`,
+      active: pathname === `/${storeid}/sizes`,
+    },
+    {
       label: "Settings",
       href: `/${storeid}/settings`,
       active: pathname === `/${storeid}/settings`,
