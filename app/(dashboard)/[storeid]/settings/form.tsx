@@ -50,7 +50,6 @@ export default function SettingForm({
       });
       const data = await res.json();
       router.refresh();
-      // console.log(data);
     } catch (e) {
       console.log(e);
     } finally {
@@ -74,11 +73,7 @@ export default function SettingForm({
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          // className={`${saving && "opacity-80"}`}
-          disabled={saving}
-        >
+        <Button type="submit" disabled={saving}>
           {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Save changes
         </Button>

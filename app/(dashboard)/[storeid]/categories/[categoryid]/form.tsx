@@ -5,11 +5,9 @@ import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { CldImage, CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -49,8 +47,6 @@ export default function CategoryForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      // label: editData?.label || "",
-      // billboard: "m@google.com",
       billboard: editData?.billboardId || undefined,
       name: editData?.name,
     },
@@ -115,7 +111,6 @@ export default function CategoryForm({
       })
       .catch((e) => {
         toast.error("Error fetching billboards");
-        console.log(e);
       });
   }, []);
 
