@@ -1,40 +1,40 @@
 "use client";
 import { notFound, useParams, usePathname } from "next/navigation";
 import SubPageTitle from "../../components/sub-page-title";
-import BillboardForm from "./form";
+import ProductForm from "./form";
 import { useEffect, useState } from "react";
 const BillboardItem = () => {
-  const { billboardid, storeid } = useParams();
+  const { productid, storeid } = useParams();
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
-  const createNew = billboardid === "new";
+  const createNew = productid === "new";
 
   useEffect(() => {
     if (createNew) return;
-    fetch(`/api/store/${storeid}/billboards/${billboardid}`)
+    fetch(`/api/store/${storeid}/products/${productid}`)
       .then((res) => res.json())
       .then((data) => setData(data.data))
       .catch((e) => {
         console.log(e);
         setError(true);
       });
-  }, [billboardid]);
+  }, [productid]);
 
-  const title = createNew ? "Create New Billboard" : "Edit Billboard";
+  const title = createNew ? "Create New Product" : "Edit Product";
 
-  if (error) throw new Error("Error fetching billboard");
+  if (error) throw new Error("Error fetching product");
   if (!createNew && !data) return <div>Loading .. .</div>;
   return (
     <div className="py-5">
       <SubPageTitle
-        callbackUrl={`/${storeid}/billboards`}
-        desc="manage your billboard"
+        callbackUrl={`/${storeid}/products`}
+        desc="manage your product"
         editMode={!createNew}
-        route={`/api/store/${storeid}/billboards/${billboardid}`}
+        route={`/api/store/${storeid}/products/${productid}`}
         title={title}
       />
-      <div className="w-[min(100%,400px)] my-5">
-        <BillboardForm editData={data} editMode={!createNew} />
+      <div className="w-[min(100%)] my-5">
+        <ProductForm editData={data} editMode={!createNew} />
       </div>
     </div>
   );

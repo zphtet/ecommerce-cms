@@ -82,7 +82,6 @@ export default function CategoryForm({
   };
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     const createData = {
       name: values.name,
       billboardId: values.billboard,

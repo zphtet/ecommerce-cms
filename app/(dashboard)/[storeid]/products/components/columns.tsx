@@ -1,13 +1,64 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Billboard } from "@prisma/client";
+import { formatCurrency } from "@/lib/utils";
 import CellAction from "./cell-action";
 
-export const columns: ColumnDef<Billboard>[] = [
+export type ProductColumn = {
+  id: string;
+  name: string;
+  price: string;
+  isArchived: boolean;
+  isFeatured: boolean;
+  category: string;
+  size: string;
+  color: string;
+  createdAt: Date;
+};
+
+export const columns: ColumnDef<ProductColumn>[] = [
   {
-    accessorKey: "label",
-    header: "Label",
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "isArchived",
+    header: "Archived",
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+    cell: ({ row }) => {
+      const priceInCents = row.original.price;
+      return <p>{formatCurrency(priceInCents)}</p>;
+    },
+  },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+  {
+    accessorKey: "size",
+    header: "Size",
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
+    cell: ({ row }) => {
+      const hexColor = row.original.color;
+      return (
+        <div
+          className="w-[40px] h-[16px]"
+          style={{
+            backgroundColor: `${hexColor}`,
+          }}
+        ></div>
+      );
+    },
   },
   {
     accessorKey: "createdAt",

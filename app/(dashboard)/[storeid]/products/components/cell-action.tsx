@@ -7,7 +7,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Billboard } from "@prisma/client";
 import { MoreHorizontal } from "lucide-react";
 import toast from "react-hot-toast";
 import { AiOutlineCopy, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
@@ -15,22 +14,23 @@ import ConfirmDialog from "../../components/confirm-dialog";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDeleteContext } from "@/context/DeleteContext";
-const CellAction = ({ data }: { data: Billboard }) => {
-  const billboard = data;
+import { ProductColumn } from "./columns";
+const CellAction = ({ data }: { data: ProductColumn }) => {
+  const product = data;
   const { deleteId, setDeleteId } = useDeleteContext();
   const router = useRouter();
   const { storeid } = useParams();
   const [deleting, setDeleting] = useState(false);
 
   const showDialog = () => {
-    setDeleteId(billboard.id);
+    setDeleteId(product.id);
     document.getElementById("confirm-delete")?.click();
   };
   const deleteHandler = async () => {
     try {
       setDeleting(true);
       console.log("delete id", deleteId);
-      const res = await fetch(`/api/store/${storeid}/billboards/${deleteId}`, {
+      const res = await fetch(`/api/store/${storeid}/products/${deleteId}`, {
         method: "DELETE",
       });
       await res.json();
@@ -56,7 +56,7 @@ const CellAction = ({ data }: { data: Billboard }) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem
           className="flex items-center cursor-pointer gap-2"
-          onClick={() => navigator.clipboard.writeText(billboard.id)}
+          onClick={() => navigator.clipboard.writeText(product.id)}
         >
           <AiOutlineCopy /> Copy ID
         </DropdownMenuItem>
@@ -64,7 +64,7 @@ const CellAction = ({ data }: { data: Billboard }) => {
         <DropdownMenuItem
           className="flex items-center cursor-pointer gap-2"
           onClick={() => {
-            router.push(`/${billboard.storeId}/billboards/${billboard.id}`);
+            router.push(`/${storeid}/products/${product.id}`);
           }}
         >
           <AiOutlineEdit /> update
@@ -78,7 +78,7 @@ const CellAction = ({ data }: { data: Billboard }) => {
       </DropdownMenuContent>
       <ConfirmDialog
         handler={deleteHandler}
-        name="Billboard"
+        name="Product"
         loading={deleting}
       />
     </DropdownMenu>
