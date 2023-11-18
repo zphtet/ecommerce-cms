@@ -57,7 +57,10 @@ const CellAction = ({ data }: { data: Size }) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem
           className="flex items-center cursor-pointer gap-2"
-          onClick={() => navigator.clipboard.writeText(size.id)}
+          onClick={() => {
+            navigator.clipboard.writeText(size.id);
+            toast.success("copied successfully");
+          }}
         >
           <AiOutlineCopy /> Copy ID
         </DropdownMenuItem>

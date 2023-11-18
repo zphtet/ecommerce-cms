@@ -29,6 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   price: z.string().min(1).max(50),
