@@ -7,9 +7,10 @@ type TitleProps = {
   number: number;
   desc: string;
   href: string;
+  isNew?: boolean;
 };
 
-const PageTitle = ({ title, number, desc, href }: TitleProps) => {
+const PageTitle = ({ title, number, desc, href, isNew }: TitleProps) => {
   return (
     <>
       <div className="flex justify-between items-center">
@@ -19,9 +20,11 @@ const PageTitle = ({ title, number, desc, href }: TitleProps) => {
           </h3>
           <p>{desc}</p>
         </div>
-        <Link href={href}>
-          <Button> + Add New</Button>
-        </Link>
+        {isNew && (
+          <Link href={href}>
+            <Button> + Add New</Button>
+          </Link>
+        )}
       </div>
       <Separator className="mt-3" />
     </>
