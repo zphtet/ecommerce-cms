@@ -10,7 +10,7 @@ type TitleProps = {
   isNew?: boolean;
 };
 
-const PageTitle = ({ title, number, desc, href, isNew }: TitleProps) => {
+const PageTitle = ({ title, number, desc, href, isNew = true }: TitleProps) => {
   return (
     <>
       <div className="flex justify-between items-center">

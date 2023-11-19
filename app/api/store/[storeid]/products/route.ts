@@ -21,9 +21,21 @@ export async function GET(
   req: Request,
   { params }: { params: { storeid: string } }
 ) {
+  const { searchParams } = new URL(req.url);
+  const isFeatured = searchParams.get("featured");
+  const category = searchParams.get("category");
+  const categoryId = searchParams.get("categoryId");
+  const limit = searchParams.get("limit");
   const data = await prisma.product.findMany({
+    skip: 0,
+    take: Number(limit) ? Number(limit) : undefined,
     where: {
       storeId: params.storeid,
+      isFeatured: isFeatured ? true : undefined,
+      categoryId: categoryId ? categoryId : undefined,
+    },
+    include: {
+      category: category ? true : undefined,
     },
   });
   return NextResponse.json({
