@@ -25,6 +25,8 @@ export async function GET(
   const isFeatured = searchParams.get("featured");
   const category = searchParams.get("category");
   const categoryId = searchParams.get("categoryId");
+  const size = searchParams.get("size");
+  const color = searchParams.get("color");
   const limit = searchParams.get("limit");
   const data = await prisma.product.findMany({
     skip: 0,
@@ -36,6 +38,8 @@ export async function GET(
     },
     include: {
       category: category ? true : undefined,
+      size: size ? true : undefined,
+      color: color ? true : undefined,
     },
   });
   return NextResponse.json({
