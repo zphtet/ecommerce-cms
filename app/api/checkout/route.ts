@@ -13,7 +13,6 @@ type CartItemType = {
 };
 export async function POST(request: Request) {
   const body = (await request.json()) as CartItemType[];
-  console.log("Received Cart Items", body);
 
   const lineItems = body.map((item) => {
     return {

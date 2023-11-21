@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Loader2 } from "lucide-react";
+import { ImagePlus, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Category, Color, Product, Size } from "@prisma/client";
 import ImgCard from "../components/img-card";
@@ -209,10 +209,10 @@ export default function ProductForm({
                       }
                       return (
                         <div
-                          className="bg-gray-500 w-max px-3 py-1 rounded-sm text-white cursor-pointer"
+                          className="bg-gray-200 w-max px-3 py-1 text-sm rounded-sm text-gray-800 cursor-pointer flex items-center gap-2"
                           onClick={handleOnClick}
                         >
-                          Upload Images
+                          <ImagePlus size={"16px"} /> Upload Images
                         </div>
                       );
                     }}

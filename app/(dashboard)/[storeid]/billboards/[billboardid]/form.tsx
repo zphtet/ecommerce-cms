@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { ImagePlus, Loader2 } from "lucide-react";
 import { AiOutlineDelete } from "react-icons/ai";
 import toast from "react-hot-toast";
 import { Billboard } from "@prisma/client";
@@ -140,11 +140,13 @@ export default function BillboardForm({
               <FormControl>
                 {!imgUrl && (
                   <CldUploadButton
-                    className="block px-2 py-1 text-sm bg-gray-800 text-white rounded-md"
+                    className=" px-2 flex items-center gap-1 py-1 text-sm bg-gray-200 text-gray-800  rounded-md"
                     uploadPreset="koils7d3"
                     {...field}
                     onUpload={uploadHandler}
-                  />
+                  >
+                    <ImagePlus size={"16px"} /> Upload Image
+                  </CldUploadButton>
                 )}
               </FormControl>
               {imgEmpty && <p className="text-sm text-red-500">Upload image</p>}
@@ -153,21 +155,24 @@ export default function BillboardForm({
             </FormItem>
           )}
         />
+        {/* {imgUrl && (
+        
+        )} */}
         {imgUrl && (
-          <div
-            onClick={removeImgHandler}
-            className="w-max px-2 py-2 rounded cursor-pointer  bg-red-600 text-white"
-          >
-            <AiOutlineDelete />
+          <div className="relative w-max">
+            <div
+              onClick={removeImgHandler}
+              className="w-max px-2 py-2 hover:opacity-80 absolute top-2 right-2 rounded cursor-pointer  bg-red-600 text-white"
+            >
+              <AiOutlineDelete />
+            </div>
+            <CldImage
+              width="300"
+              height="300"
+              src={imgUrl}
+              alt="bill board image"
+            />
           </div>
-        )}
-        {imgUrl && (
-          <CldImage
-            width="300"
-            height="300"
-            src={imgUrl}
-            alt="bill board image"
-          />
         )}
 
         <Button
