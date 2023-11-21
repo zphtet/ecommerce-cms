@@ -8,6 +8,7 @@ export async function POST(request: Request) {
       ...body,
     },
   });
+
   return NextResponse.json({
     status: "success",
     data: createdStore,
