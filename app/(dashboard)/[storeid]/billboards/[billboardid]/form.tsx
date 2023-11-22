@@ -155,9 +155,7 @@ export default function BillboardForm({
             </FormItem>
           )}
         />
-        {/* {imgUrl && (
-        
-        )} */}
+
         {imgUrl && (
           <div className="relative w-max">
             <div

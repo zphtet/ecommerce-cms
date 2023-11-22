@@ -115,7 +115,8 @@ model Order {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   storeId    String    @db.ObjectId
   store      Store     @relation("StoreToOrder", fields: [storeId], references: [id])
-  orderItems OrderItem[]  
+  orderItems OrderItem[] 
+  price      String?
   isPaid     Boolean   @default(false)
   phone      String    @default("")
   address    String    @default("")

@@ -1,13 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import CellAction from "./cell-action";
 import { Order } from "@prisma/client";
+import { formatCurrency } from "@/lib/utils";
 
 export const columns: ColumnDef<Order>[] = [
   {
-    accessorKey: "name",
-    header: "Products",
+    accessorKey: "id",
+    header: "OrderId",
   },
   {
     accessorKey: "phone",
@@ -22,35 +22,14 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: "price",
     header: "TotalPrice",
     cell: ({ row }) => {
-      const value = row.getValue("value");
-
+      const value = formatCurrency(row.original.price || "0");
       return (
-        <div className=" font-medium flex items-center gap-2">
-          <p>{value as string}</p>
-          <div
-            className={`w-3 h-3 `}
-            style={{
-              backgroundColor: `${value}`,
-            }}
-          ></div>
-        </div>
+        <div className=" font-medium flex items-center gap-2">{value}</div>
       );
     },
   },
   {
     accessorKey: "isPaid",
     header: "isPaid",
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Date",
-    cell: ({ row }) => {
-      const date = row.getValue("createdAt");
-      const formatted = new Intl.DateTimeFormat("en-US", {
-        dateStyle: "medium",
-      }).format(date as unknown as Date);
-
-      return <div className=" font-medium">{formatted}</div>;
-    },
   },
 ];

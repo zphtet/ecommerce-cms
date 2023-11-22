@@ -1,7 +1,7 @@
-import { redirect } from "next/navigation";
+import prisma from "@/prisma/prisma-client";
 import { NextResponse } from "next/server";
-import { MdAssignmentReturn } from "react-icons/md";
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import { stripe } from "@/lib/stripe";
 
 type CartItemType = {
   id: string;
@@ -11,9 +11,32 @@ type CartItemType = {
   name: string;
   price: string;
 };
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: { storeid: string } }
+) {
   const body = (await request.json()) as CartItemType[];
 
+  const ids = body.map((item) => item.id);
+  const price = body.reduce((accum, item) => {
+    return Number(item.price) + accum;
+  }, 0);
+  const order = await prisma.order.create({
+    data: {
+      storeId: params.storeid,
+      isPaid: false,
+      price: price.toString(),
+      orderItems: {
+        create: ids.map((productId: string) => ({
+          product: {
+            connect: {
+              id: productId,
+            },
+          },
+        })),
+      },
+    },
+  });
   const lineItems = body.map((item) => {
     return {
       price_data: {
@@ -32,8 +55,15 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       line_items: [...lineItems],
       mode: "payment",
+      phone_number_collection: {
+        enabled: true,
+      },
+      billing_address_collection: "required",
       success_url: `${process.env.STRIPE_FRONTEND_URL}/?success=true`,
       cancel_url: `${process.env.STRIPE_FRONTEND_URL}/?canceled=true`,
+      metadata: {
+        orderId: order.id,
+      },
     });
     return NextResponse.json({
       url: session.url,

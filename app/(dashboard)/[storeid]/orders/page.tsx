@@ -24,7 +24,7 @@ const CategoryPage = async ({ params }: { params: { storeid: string } }) => {
         number={data.length}
         desc="Manage your orders"
         isNew={false}
-        href={`/${params.storeid}/colors/new`}
+        href={`/${params.storeid}/orders/new`}
       />
       <div className="my-5">
         <DataTable data={data} columns={columns} domId="name" filter="orders" />
