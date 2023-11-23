@@ -14,7 +14,7 @@ export default async function Page() {
     },
   });
 
-  if (store) return redirect(`/${store.id}`);
+  if (store) return redirect(`/${store.id}/overview`);
 
   return (
     <div className="w-screen h-screen grid place-items-center">

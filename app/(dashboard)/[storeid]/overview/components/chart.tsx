@@ -64,11 +64,11 @@ const OverviewChart = ({ orders }: { orders: Order[] }) => {
     };
   });
   orders.forEach((order) => {
+    if (!order.isPaid) return;
     const idx = order.createdAt.getMonth();
     const currPrice = !order.price ? 0 : Number(order.price) / 100;
     resetData[idx].sale += currPrice;
   });
-  console.log(resetData);
   return (
     <div className="my-5">
       <ResponsiveContainer width="100%" height={350}>

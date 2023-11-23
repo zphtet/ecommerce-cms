@@ -35,7 +35,7 @@ const CategoryPage = async ({ params }: { params: { storeid: string } }) => {
       route: `/store/${params.storeid}/categories/{categoryid}`,
     },
     {
-      name: "DELETE_SINGLE_CATEGORY",
+      name: "DELETE_UPDATE_SINGLE_CATEGORY",
       access: "admin",
       route: `/store/${params.storeid}/categories/{categoryid}`,
     },
@@ -53,7 +53,7 @@ const CategoryPage = async ({ params }: { params: { storeid: string } }) => {
   return (
     <div className="py-5">
       <PageTitle
-        title="Categoried"
+        title="Categories"
         number={data.length}
         desc="Manage your categories"
         href={`/${params.storeid}/categories/new`}

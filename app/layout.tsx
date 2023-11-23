@@ -20,7 +20,7 @@ export default function RootLayout({
       {/* <QueryProvider> */}
 
       <ClerkProvider>
-        <body className={inter.className}>
+        <body className={`${inter.className} overflow-x-auto`}>
           <DeleteContextProvider>
             <Toaster />
             {children}

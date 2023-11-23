@@ -1,7 +1,7 @@
 import { BaggageClaim, DollarSign, Layers } from "lucide-react";
 import OverviewCard from "./card";
 import prisma from "@/prisma/prisma-client";
-import { Order } from "@prisma/client";
+
 import OverviewChart from "./chart";
 
 const OverviewCardsContainer = async ({ storeid }: { storeid: string }) => {
@@ -27,9 +27,11 @@ const OverviewCardsContainer = async ({ storeid }: { storeid: string }) => {
   const products = await getProducts();
 
   const totalOrders = orders.length;
-  const totalPrice = orders.reduce((accum, item) => {
-    return accum + Number(item.price);
-  }, 0);
+  const totalPrice = orders
+    .filter((order) => order.isPaid !== false)
+    .reduce((accum, item) => {
+      return accum + Number(item.price);
+    }, 0);
   const totalProducts = products.length;
 
   return (

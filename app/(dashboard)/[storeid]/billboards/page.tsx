@@ -32,7 +32,7 @@ const BillboardPage = async ({ params }: { params: { storeid: string } }) => {
       route: `/store/${params.storeid}/billboards/{billboardid}`,
     },
     {
-      name: "DELETE_SINGLE_BILLBOARD",
+      name: "DELETE_UPDATE_SINGLE_BILLBOARD",
       access: "admin",
       route: `/store/${params.storeid}/billboards/{billboardid}`,
     },

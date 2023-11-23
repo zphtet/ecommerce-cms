@@ -32,7 +32,7 @@ const CategoryPage = async ({ params }: { params: { storeid: string } }) => {
       route: `/store/${params.storeid}/colors/{colorid}`,
     },
     {
-      name: "DELETE_SINGLE_COLOR",
+      name: "DELETE_UPDATE_SINGLE_COLOR",
       access: "admin",
       route: `/store/${params.storeid}/colors/{colorid}`,
     },

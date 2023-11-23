@@ -36,7 +36,7 @@ const ProductPage = async ({ params }: { params: { storeid: string } }) => {
       route: `/store/${params.storeid}/products/{productid}`,
     },
     {
-      name: "DELETE_SINGLE_PRODUCT",
+      name: "DELETE_UPDATE_SINGLE_PRODUCT",
       access: "admin",
       route: `/store/${params.storeid}/products/{productid}`,
     },

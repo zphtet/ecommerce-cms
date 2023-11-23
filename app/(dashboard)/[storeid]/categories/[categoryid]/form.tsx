@@ -116,48 +116,53 @@ export default function CategoryForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <FormControl>
-                <Input placeholder="your category name ..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="billboard"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Billboard</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <div className="flex items-center gap-5">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Label</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select  billboard to display" />
-                  </SelectTrigger>
+                  <Input placeholder="your category name ..." {...field} />
                 </FormControl>
-                {selectData && (
-                  <SelectContent>
-                    {selectData.map((billboard) => {
-                      return (
-                        <SelectItem value={billboard.id} key={billboard.id}>
-                          {billboard.label}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                )}
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="billboard"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Billboard</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select  billboard to display" />
+                    </SelectTrigger>
+                  </FormControl>
+                  {selectData && (
+                    <SelectContent>
+                      {selectData.map((billboard) => {
+                        return (
+                          <SelectItem value={billboard.id} key={billboard.id}>
+                            {billboard.label}
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  )}
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <Button type="submit" disabled={create}>
           {create && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
