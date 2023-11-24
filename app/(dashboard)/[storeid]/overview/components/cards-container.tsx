@@ -5,7 +5,6 @@ import prisma from "@/prisma/prisma-client";
 import OverviewChart from "./chart";
 
 const OverviewCardsContainer = async ({ storeid }: { storeid: string }) => {
-  console.log("from overviewCOntainer", storeid);
   const getOrders = async () => {
     const data = await prisma.order.findMany({
       where: {
